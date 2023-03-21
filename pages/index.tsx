@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { GetStaticProps } from 'next';
 import Header from '@/components/organisms/Header';
 import MainSection from '@/components/organisms/MainSection';
-import ProductCard from '@/components/molecules/ProductCard';
+import ProductList from '@/components/organisms/ProductList';
 
 export default function Home() {
 	// const {
@@ -35,7 +35,7 @@ export default function Home() {
 			<>
 				<Header />
 				<MainSection>
-					<ProductCard />
+					<ProductList />
 				</MainSection>
 			</>
 		</>

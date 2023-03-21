@@ -35,11 +35,11 @@ const ProductCard = (props: Props) => {
 	return (
 		<Card>
 			<Image
-				src='http://x.annihil.us/u/prod/marvel/i/mg/3/40/4bb4680432f73/portrait_incredible.jpg'
+				src='/images/dummy_image.jpg'
 				alt=''
 				height={324}
 				width={216}
-				style={{ objectFit: 'contain' }}
+				style={{ objectFit: 'cover' }}
 			/>
 			<Content>
 				<Title>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</Title>

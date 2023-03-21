@@ -15,11 +15,21 @@ const StyledHeader = styled.header`
 	padding-inline: 25px;
 `;
 
+const Content = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 1200px;
+	margin-inline: auto;
+`;
+
 const Header = (props: Props) => {
 	return (
 		<StyledHeader>
-			<Logo />
-			<ShoppingCart />
+			<Content>
+				<Logo />
+				<ShoppingCart />
+			</Content>
 		</StyledHeader>
 	);
 };
