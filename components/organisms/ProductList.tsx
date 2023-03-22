@@ -38,6 +38,7 @@ const ProductList = ({ products }: { products: Products }) => {
 			{products.map(product => (
 				<ProductCard
 					key={product.id}
+					id={product.id}
 					title={product.title}
 					price={product.prices[0].price}
 					thumbnail={`${product.thumbnail.path}/portrait_incredible.${product.thumbnail.extension}`}

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import styled from 'styled-components';
 import AddToCart from '../atoms/AddToCart';
 
@@ -6,6 +7,7 @@ type Props = {
 	title: string;
 	price: number;
 	thumbnail: string;
+	id: string;
 };
 
 const Card = styled.article`
@@ -35,30 +37,32 @@ const Pricing = styled.div`
 	font-size: 1.1rem;
 `;
 
-const ProductCard = ({ title, price, thumbnail }: Props) => {
+const ProductCard = ({ title, price, thumbnail, id }: Props) => {
 	return (
 		<Card>
-			<Image
-				src={thumbnail}
-				alt=''
-				height={324}
-				width={216}
-				style={{ objectFit: 'cover' }}
-			/>
-			<Content>
-				<Title>{title}</Title>
-				<Pricing>
-					<p>
-						{price}{' '}
-						<span style={{ fontSize: '0.7rem', fontWeight: 'normal' }}>
-							USD
-						</span>
-					</p>
-					<div>
-						<AddToCart />
-					</div>
-				</Pricing>
-			</Content>
+			<Link href={`comics/${id}`}>
+				<Image
+					src={thumbnail}
+					alt={title}
+					height={324}
+					width={216}
+					style={{ objectFit: 'cover' }}
+				/>
+				<Content>
+					<Title>{title}</Title>
+					<Pricing>
+						<p>
+							{price}{' '}
+							<span style={{ fontSize: '0.7rem', fontWeight: 'normal' }}>
+								USD
+							</span>
+						</p>
+						<div>
+							<AddToCart />
+						</div>
+					</Pricing>
+				</Content>
+			</Link>
 		</Card>
 	);
 };

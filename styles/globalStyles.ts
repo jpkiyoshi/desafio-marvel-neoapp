@@ -22,4 +22,8 @@ export default createGlobalStyle`
     --white: #f8f8f8;
     --black: #161616;
   }
+
+  a{
+    text-decoration: none;
+  }
 `;

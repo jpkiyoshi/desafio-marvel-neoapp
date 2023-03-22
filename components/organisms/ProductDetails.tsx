@@ -1,7 +1,18 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-type Props = {};
+type Creator = {
+	name: string;
+	resourceURI: string;
+};
+
+type Props = {
+	title: string;
+	creators: Creator[];
+	pageCount: number;
+	description: string;
+	price: number;
+};
 
 const Container = styled.section`
 	display: grid;
@@ -42,7 +53,7 @@ const SubHeading = styled.h2`
 	margin-bottom: 10px;
 `;
 
-const ProductDetails = (props: Props) => {
+const ProductDetails = ({ title, creators, pageCount, description, price }: Props) => {
 	return (
 		<Container>
 			<ImageContainer>
@@ -54,35 +65,27 @@ const ProductDetails = (props: Props) => {
 				/>
 			</ImageContainer>
 			<Content>
-				<Title>TÍTULO AQUI</Title>
+				<Title>{title}</Title>
 				<div>
 					<SubHeading>Características</SubHeading>
-					<p>Caracterísic: valor</p>
-					<p>Caracterísic: valor</p>
-					<p>Caracterísic: valor</p>
-					<p>Caracterísic: valor</p>
-					<p>Caracterísic: valor</p>
-					<p>Caracterísic: valor</p>
-					<p>Caracterísic: valor</p>
-					<p>Caracterísic: valor</p>
-					<p>Caracterísic: valor</p>
-					<p>Caracterísic: valor</p>
-					<p>Caracterísic: valor</p>
-					<p>Caracterísic: valor</p>
-					<p>Caracterísic: valor</p>
+					<p>
+						Criadores:{' '}
+						{creators.map((creator, index) => (
+							<span key={creator.resourceURI}>
+								{' '}
+								{creator.name}
+								{index !== creators.length - 1 ? ', ' : ''}
+							</span>
+						))}
+					</p>
+					<p>Número de páginas: {pageCount}</p>
 				</div>
 				<div>
 					<SubHeading>Descrição</SubHeading>
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora,
-						minus, quis asperiores qui cupiditate quia quaerat laudantium
-						harum aut tenetur voluptatibus rerum voluptatem nulla deleniti
-						ipsum impedit delectus quibusdam obcaecati voluptas omnis
-						distinctio? Cupiditate nam voluptatibus hic ducimus, mollitia sint
-						deleniti ad in fugiat maiores eum delectus. Doloribus, iure optio.
-					</p>
+					<p>{description}</p>
 				</div>
 				<div>
+					<p>{price}</p>
 					<button>COMPRAR ESSA COMIC</button>
 				</div>
 			</Content>
