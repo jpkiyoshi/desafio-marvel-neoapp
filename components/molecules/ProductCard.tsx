@@ -2,7 +2,11 @@ import Image from 'next/image';
 import styled from 'styled-components';
 import AddToCart from '../atoms/AddToCart';
 
-type Props = {};
+type Props = {
+	title: string;
+	price: number;
+	thumbnail: string;
+};
 
 const Card = styled.article`
 	width: 216px;
@@ -31,21 +35,21 @@ const Pricing = styled.div`
 	font-size: 1.1rem;
 `;
 
-const ProductCard = (props: Props) => {
+const ProductCard = ({ title, price, thumbnail }: Props) => {
 	return (
 		<Card>
 			<Image
-				src='/images/dummy_image.jpg'
+				src={thumbnail}
 				alt=''
 				height={324}
 				width={216}
 				style={{ objectFit: 'cover' }}
 			/>
 			<Content>
-				<Title>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</Title>
+				<Title>{title}</Title>
 				<Pricing>
 					<p>
-						300{' '}
+						{price}{' '}
 						<span style={{ fontSize: '0.7rem', fontWeight: 'normal' }}>
 							USD
 						</span>
