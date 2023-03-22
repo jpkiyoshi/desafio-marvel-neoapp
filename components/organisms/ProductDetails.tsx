@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import styled from 'styled-components';
+import AddToCart from '../atoms/AddToCart';
+import Button from '../atoms/Button';
 
 type Creator = {
 	name: string;
@@ -12,6 +14,7 @@ type Props = {
 	pageCount: number;
 	description: string;
 	price: number;
+	imageURL: string;
 };
 
 const Container = styled.section`
@@ -20,7 +23,7 @@ const Container = styled.section`
 	align-content: center;
 	justify-items: center;
 	grid-template-columns: 1fr 1fr;
-	background-color: var(--white);
+	background-color: var(--orange);
 	margin-top: 80px;
 	padding: 25px;
 	width: 80%;
@@ -30,13 +33,15 @@ const Container = styled.section`
 const ImageContainer = styled.div`
 	position: relative;
 	width: 300px;
+	height: 500px;
 `;
 
 const Content = styled.div`
 	font-family: 'Roboto', sans-serif;
 	display: flex;
 	flex-direction: column;
-	gap: 50px;
+	gap: 20px;
+	line-height: 1.5;
 
 	h1 {
 		font-family: 'Comic Neue', cursive;
@@ -46,6 +51,7 @@ const Content = styled.div`
 const Title = styled.h1`
 	font-size: 2.5rem;
 	font-style: italic;
+	line-height: 1;
 `;
 
 const SubHeading = styled.h2`
@@ -53,41 +59,56 @@ const SubHeading = styled.h2`
 	margin-bottom: 10px;
 `;
 
-const ProductDetails = ({ title, creators, pageCount, description, price }: Props) => {
+const StyledParagraph = styled.p`
+	font-weight: bold;
+`;
+
+const ProductDetails = ({
+	title,
+	creators,
+	pageCount,
+	description,
+	price,
+	imageURL,
+}: Props) => {
 	return (
 		<Container>
 			<ImageContainer>
-				<Image
-					src='/images/dummy-image-details.jpg'
-					alt=''
-					fill
-					style={{ objectFit: 'contain' }}
-				/>
+				<Image src={imageURL} alt={title} fill style={{ objectFit: 'contain' }} />
 			</ImageContainer>
 			<Content>
 				<Title>{title}</Title>
 				<div>
 					<SubHeading>Características</SubHeading>
-					<p>
+					<StyledParagraph>
 						Criadores:{' '}
 						{creators.map((creator, index) => (
-							<span key={creator.resourceURI}>
+							<span
+								key={creator.resourceURI}
+								style={{ fontWeight: 'normal' }}
+							>
 								{' '}
 								{creator.name}
 								{index !== creators.length - 1 ? ', ' : ''}
 							</span>
 						))}
-					</p>
-					<p>Número de páginas: {pageCount}</p>
+					</StyledParagraph>
+					<StyledParagraph>
+						Número de páginas:{' '}
+						<span style={{ fontWeight: 'normal' }}>{pageCount}</span>
+					</StyledParagraph>
+					<StyledParagraph>
+						Preço: <span style={{ fontWeight: 'normal' }}>{price} USD</span>
+					</StyledParagraph>
 				</div>
 				<div>
 					<SubHeading>Descrição</SubHeading>
 					<p>{description}</p>
 				</div>
-				<div>
-					<p>{price}</p>
-					<button>COMPRAR ESSA COMIC</button>
-				</div>
+				<Button>
+					<p>Comprar</p>
+					<AddToCart />
+				</Button>
 			</Content>
 		</Container>
 	);

@@ -9,8 +9,6 @@ const Comic = ({ data }: any) => {
 
 	const comic = results[0];
 
-	console.log(comic);
-
 	return (
 		<>
 			<ProductDetails
@@ -19,6 +17,7 @@ const Comic = ({ data }: any) => {
 				description={comic.description}
 				price={comic.prices[0].price}
 				creators={comic.creators.items}
+				imageURL={`${comic.thumbnail.path}/detail.${comic.thumbnail.extension}`}
 			/>
 		</>
 	);
