@@ -10,7 +10,7 @@ const GridContainer = styled.section`
 	gap: 20px;
 	max-width: 1300px;
 	margin-inline: auto;
-	padding: 25px;
+	padding-block: 50px;
 `;
 
 const ProductList = (props: Props) => {

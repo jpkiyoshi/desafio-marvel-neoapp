@@ -6,21 +6,21 @@ type Props = {};
 
 const Card = styled.article`
 	width: 216px;
-	border: 3px solid var(--white);
+	border: 3px solid var(--orange);
 `;
 
 const Content = styled.div`
 	font-family: 'Roboto', sans-serif;
-	background-color: var(--red);
+	background-color: var(--black);
 	color: var(--white);
 	display: flex;
 	flex-direction: column;
-	padding: 20px;
+	padding: 15px;
 	gap: 20px;
 `;
 
 const Title = styled.h2`
-	font-size: 0.9rem;
+	font-size: 0.8rem;
 	font-weight: bold;
 `;
 
@@ -28,7 +28,7 @@ const Pricing = styled.div`
 	display: flex;
 	justify-content: space-between;
 	font-weight: bold;
-	font-size: 1.3rem;
+	font-size: 1.1rem;
 `;
 
 const ProductCard = (props: Props) => {

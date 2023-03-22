@@ -33,10 +33,7 @@ export default function Home() {
 				</ul>
 			</main> */}
 			<>
-				<Header />
-				<MainSection>
-					<ProductList />
-				</MainSection>
+				<ProductList />
 			</>
 		</>
 	);

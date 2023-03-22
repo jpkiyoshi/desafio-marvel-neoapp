@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styled from 'styled-components';
 import Logo from '../atoms/Logo';
 import ShoppingCart from '../atoms/ShoppingCart';
@@ -27,7 +28,9 @@ const Header = (props: Props) => {
 	return (
 		<StyledHeader>
 			<Content>
-				<Logo />
+				<Link href='/'>
+					<Logo />
+				</Link>
 				<ShoppingCart />
 			</Content>
 		</StyledHeader>

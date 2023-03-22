@@ -15,7 +15,6 @@ export default createGlobalStyle`
   }
 
   body {
-   /* font-family: 'Roboto', sans-serif; */
    font-family: 'Comic Neue', cursive;
 
     --orange: #ffb800;

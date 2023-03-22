@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 const StyledMainSection = styled.main`
-	height: 100dvh;
 	background-image: url('/images/hero-image.jpg');
-	background-size: cover;
+	background-size: auto;
 	background-position: center;
+	background-repeat: repeat;
 `;
 
 const HeroSection = ({ children }: { children: React.ReactNode }) => {
