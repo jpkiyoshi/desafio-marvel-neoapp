@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import { GetStaticProps } from 'next';
 import ProductList from '@/components/organisms/ProductList';
+import Link from 'next/link';
+import Button from '@/components/atoms/Button';
 
 export default function Home({ data }: any) {
 	const {
@@ -17,7 +19,9 @@ export default function Home({ data }: any) {
 			</Head>
 
 			<>
-				<ProductList products={comics} />
+				<Button>
+					<Link href='/page/1'>Ir para COMICS</Link>
+				</Button>
 			</>
 		</>
 	);

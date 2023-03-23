@@ -53,7 +53,7 @@ const ProductCard = ({ title, price, thumbnail, id }: Props) => {
 
 	return (
 		<Card>
-			<Link href={`comics/${id}`}>
+			<Link href={`/comics/${id}`}>
 				<Image
 					src={`${thumbnail.path}/portrait_incredible.${thumbnail.extension}`}
 					alt={title}
