@@ -4,7 +4,7 @@ import ProductList from '@/components/organisms/ProductList';
 
 export default function Home({ data }: any) {
 	const {
-		data: { results },
+		data: { results: comics },
 	} = data;
 
 	return (
@@ -17,7 +17,7 @@ export default function Home({ data }: any) {
 			</Head>
 
 			<>
-				<ProductList products={results} />
+				<ProductList products={comics} />
 			</>
 		</>
 	);
@@ -25,8 +25,9 @@ export default function Home({ data }: any) {
 
 export const getStaticProps: GetStaticProps = async () => {
 	const res = await fetch(
-		`http://gateway.marvel.com/v1/public/comics?ts=1&apikey=${process.env.NEXT_PUBLIC_API_KEY}&hash=f3c107943b00a0293c39eb2c158a731a`
+		`http://gateway.marvel.com/v1/public/comics?format=comic&limit=10&offset=10&ts=1&apikey=${process.env.NEXT_PUBLIC_API_KEY}&hash=f3c107943b00a0293c39eb2c158a731a`
 	);
+
 	const data = await res.json();
 
 	return {
