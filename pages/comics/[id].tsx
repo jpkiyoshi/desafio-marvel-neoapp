@@ -12,12 +12,13 @@ const Comic = ({ data }: any) => {
 	return (
 		<>
 			<ProductDetails
+				id={comic.id}
 				title={comic.title}
 				pageCount={comic.pageCount}
 				description={comic.description}
 				price={comic.prices[0].price}
 				creators={comic.creators.items}
-				imageURL={`${comic.thumbnail.path}/detail.${comic.thumbnail.extension}`}
+				thumbnail={comic.thumbnail}
 			/>
 		</>
 	);

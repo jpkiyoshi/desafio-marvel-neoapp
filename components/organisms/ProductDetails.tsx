@@ -2,6 +2,8 @@ import Image from 'next/image';
 import styled from 'styled-components';
 import AddToCartIcon from '../atoms/AddToCartIcon';
 import Button from '../atoms/Button';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '@/redux/cart.slice';
 
 type Creator = {
 	name: string;
@@ -9,12 +11,16 @@ type Creator = {
 };
 
 type Props = {
+	id: number;
 	title: string;
 	creators: Creator[];
 	pageCount: number;
 	description: string;
 	price: number;
-	imageURL: string;
+	thumbnail: {
+		path: string;
+		extension: string;
+	};
 };
 
 const Container = styled.section`
@@ -64,17 +70,25 @@ const StyledParagraph = styled.p`
 `;
 
 const ProductDetails = ({
+	id,
 	title,
 	creators,
 	pageCount,
 	description,
 	price,
-	imageURL,
+	thumbnail,
 }: Props) => {
+	const dispatch = useDispatch();
+
 	return (
 		<Container>
 			<ImageContainer>
-				<Image src={imageURL} alt={title} fill style={{ objectFit: 'contain' }} />
+				<Image
+					src={`${thumbnail.path}/detail.${thumbnail.extension}`}
+					alt={title}
+					fill
+					style={{ objectFit: 'contain' }}
+				/>
 			</ImageContainer>
 			<Content>
 				<Title>{title}</Title>
@@ -105,8 +119,12 @@ const ProductDetails = ({
 					<SubHeading>Descrição</SubHeading>
 					<p>{description}</p>
 				</div>
-				<Button>
-					<p>Comprar</p>
+				<Button
+					onClick={() => {
+						dispatch(addToCart({ title, price, thumbnail, id }));
+					}}
+				>
+					<p>Adicionar ao carrinho</p>
 					<AddToCartIcon />
 				</Button>
 			</Content>
