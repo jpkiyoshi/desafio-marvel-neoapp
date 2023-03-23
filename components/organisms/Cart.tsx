@@ -113,8 +113,23 @@ const RemoveButton = styled.button`
 
 const TotalPrice = styled.p``;
 
+type CartItem = {
+	id: number;
+	price: number;
+	quantity: number;
+	title: string;
+	thumbnail: {
+		path: string;
+		extension: string;
+	};
+};
+
+type State = {
+	cart: CartItem[];
+};
+
 const Cart = () => {
-	const cart = useSelector(state => state.cart);
+	const cart = useSelector((state: State) => state.cart);
 	const dispatch = useDispatch();
 
 	const getTotalPrice = () => {
@@ -128,7 +143,9 @@ const Cart = () => {
 		<Container>
 			<Title>Carrinho</Title>
 			{cart.length === 0 ? (
-				<div>Seu carrinho não possui nenhum quadrinho.</div>
+				<p style={{ marginInline: 'auto' }}>
+					Seu carrinho não possui nenhum quadrinho.
+				</p>
 			) : (
 				<CartItemsWrapper>
 					{cart.map(item => (

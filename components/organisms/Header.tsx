@@ -4,8 +4,6 @@ import styled from 'styled-components';
 import Logo from '../atoms/Logo';
 import ShoppingCart from '../atoms/ShoppingCart';
 
-type Props = {};
-
 const StyledHeader = styled.header`
 	height: 70px;
 	width: 100%;
@@ -25,8 +23,43 @@ const Content = styled.div`
 	margin-inline: auto;
 `;
 
-const Header = (props: Props) => {
-	const cart = useSelector(state => state.cart);
+const CartCountWrapper = styled.div`
+	position: relative;
+
+	span {
+		position: absolute;
+		border: 2px solid var(--black);
+		font-size: 0.8rem;
+		display: grid;
+		place-content: center;
+		height: 20px;
+		width: 20px;
+		color: var(--white);
+		background-color: var(--red);
+		border-radius: 500px;
+		top: -5px;
+		left: 55%;
+		transform: translateX(-50%);
+	}
+`;
+
+type CartItem = {
+	id: number;
+	price: number;
+	quantity: number;
+	title: string;
+	thumbnail: {
+		path: string;
+		extension: string;
+	};
+};
+
+type State = {
+	cart: CartItem[];
+};
+
+const Header = () => {
+	const cart = useSelector((state: State) => state.cart);
 
 	const getItemsCount = () => {
 		return cart.reduce((accumulator, item) => accumulator + item.quantity, 0);
@@ -39,8 +72,10 @@ const Header = (props: Props) => {
 					<Logo />
 				</Link>
 				<Link href='/shopping-cart'>
-					<ShoppingCart />
-					<p>({getItemsCount()})</p>
+					<CartCountWrapper>
+						<ShoppingCart />
+						<span>{getItemsCount()}</span>
+					</CartCountWrapper>
 				</Link>
 			</Content>
 		</StyledHeader>

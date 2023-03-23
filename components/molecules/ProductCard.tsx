@@ -42,6 +42,12 @@ const Pricing = styled.div`
 	font-size: 1.1rem;
 `;
 
+const Button = styled.button`
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+`;
+
 const ProductCard = ({ title, price, thumbnail, id }: Props) => {
 	const dispatch = useDispatch();
 
@@ -61,18 +67,18 @@ const ProductCard = ({ title, price, thumbnail, id }: Props) => {
 				<Title>{title}</Title>
 				<Pricing>
 					<p>
-						{price}{' '}
 						<span style={{ fontSize: '0.7rem', fontWeight: 'normal' }}>
-							USD
-						</span>
+							US$
+						</span>{' '}
+						{price}
 					</p>
-					<div
+					<Button
 						onClick={() => {
 							dispatch(addToCart({ title, price, thumbnail, id }));
 						}}
 					>
 						<AddToCartIcon />
-					</div>
+					</Button>
 				</Pricing>
 			</Content>
 		</Card>
