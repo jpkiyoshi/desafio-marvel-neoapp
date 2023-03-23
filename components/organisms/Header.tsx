@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Logo from '../atoms/Logo';
 import ShoppingCart from '../atoms/ShoppingCart';
@@ -25,13 +26,22 @@ const Content = styled.div`
 `;
 
 const Header = (props: Props) => {
+	const cart = useSelector(state => state.cart);
+
+	const getItemsCount = () => {
+		return cart.reduce((accumulator, item) => accumulator + item.quantity, 0);
+	};
+
 	return (
 		<StyledHeader>
 			<Content>
 				<Link href='/'>
 					<Logo />
 				</Link>
-				<ShoppingCart />
+				<Link href='/shopping-cart'>
+					<ShoppingCart />
+					<p>({getItemsCount()})</p>
+				</Link>
 			</Content>
 		</StyledHeader>
 	);

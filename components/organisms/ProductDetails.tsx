@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import styled from 'styled-components';
-import AddToCart from '../atoms/AddToCart';
+import AddToCartIcon from '../atoms/AddToCartIcon';
 import Button from '../atoms/Button';
 
 type Creator = {
@@ -107,7 +107,7 @@ const ProductDetails = ({
 				</div>
 				<Button>
 					<p>Comprar</p>
-					<AddToCart />
+					<AddToCartIcon />
 				</Button>
 			</Content>
 		</Container>

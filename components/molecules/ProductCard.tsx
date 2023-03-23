@@ -1,12 +1,17 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '@/redux/cart.slice';
 import styled from 'styled-components';
-import AddToCart from '../atoms/AddToCart';
+import AddToCartIcon from '../atoms/AddToCartIcon';
 
 type Props = {
 	title: string;
 	price: number;
-	thumbnail: string;
+	thumbnail: {
+		path: string;
+		extension: string;
+	};
 	id: string;
 };
 
@@ -38,31 +43,38 @@ const Pricing = styled.div`
 `;
 
 const ProductCard = ({ title, price, thumbnail, id }: Props) => {
+	const dispatch = useDispatch();
+
 	return (
 		<Card>
 			<Link href={`comics/${id}`}>
 				<Image
-					src={thumbnail}
+					src={`${thumbnail.path}/portrait_incredible.${thumbnail.extension}`}
 					alt={title}
 					height={324}
 					width={216}
 					style={{ objectFit: 'cover' }}
 				/>
-				<Content>
-					<Title>{title}</Title>
-					<Pricing>
-						<p>
-							{price}{' '}
-							<span style={{ fontSize: '0.7rem', fontWeight: 'normal' }}>
-								USD
-							</span>
-						</p>
-						<div>
-							<AddToCart />
-						</div>
-					</Pricing>
-				</Content>
 			</Link>
+
+			<Content>
+				<Title>{title}</Title>
+				<Pricing>
+					<p>
+						{price}{' '}
+						<span style={{ fontSize: '0.7rem', fontWeight: 'normal' }}>
+							USD
+						</span>
+					</p>
+					<div
+						onClick={() => {
+							dispatch(addToCart({ title, price, thumbnail, id }));
+						}}
+					>
+						<AddToCartIcon />
+					</div>
+				</Pricing>
+			</Content>
 		</Card>
 	);
 };
