@@ -14,22 +14,36 @@ const Container = styled.section`
 	flex-direction: column;
 	justify-content: center;
 	gap: 50px;
-	height: 100dvh;
+	min-height: 100dvh;
 	align-content: center;
 	justify-items: center;
 	background-color: var(--orange);
-	margin-top: 80px;
+	margin-top: 30px;
 	padding: 25px;
 	width: 80%;
 	margin-inline: auto;
+	margin-bottom: 50px;
+`;
+
+const TitleWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: var(--white);
 `;
 
 const Title = styled.h1`
-	font-family: 'Comic Neue', cursive;
-	font-style: italic;
+	font-family: 'Roboto', sans-serif;
 	margin-inline: auto;
+	width: fit-content;
+	margin-top: 20px;
 	font-size: 1.8rem;
 	font-size: clamp(1.8rem, 1.3800000000000001rem + 1.7919999999999998vw, 2.5rem);
+	text-transform: uppercase;
+`;
+
+const SubTitle = styled.p`
+	font-family: 'Roboto', sans-serif;
 `;
 
 const CartItemsWrapper = styled.section`
@@ -53,9 +67,8 @@ const CartItem = styled.div`
 const CartItemContent = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 	width: 100%;
-	height: 100%;
+	gap: 20px;
 `;
 
 const CartItemHeading = styled.div`
@@ -140,68 +153,73 @@ const Cart = () => {
 	};
 
 	return (
-		<Container>
-			<Title>Carrinho</Title>
-			{cart.length === 0 ? (
-				<p style={{ marginInline: 'auto' }}>
-					Seu carrinho não possui nenhum quadrinho.
-				</p>
-			) : (
-				<CartItemsWrapper>
-					{cart.map(item => (
-						<CartItem key={item.id}>
-							<Image
-								src={`${item.thumbnail.path}/portrait_small.${item.thumbnail.extension}`}
-								alt={item.title}
-								width={50}
-								height={75}
-								style={{ objectFit: 'cover' }}
-							/>
-							<CartItemContent>
-								<CartItemHeading>
-									<h2>{item.title}</h2>
-									<p>{formatMoney(item.quantity * item.price)}</p>
-								</CartItemHeading>
-								<CartItemActions>
-									<div>
-										<Button
-											onClick={() =>
-												dispatch(decrementQuantity(item.id))
-											}
-										>
-											-
-										</Button>
-										<p>{item.quantity}</p>
-										<Button
-											onClick={() =>
-												dispatch(incrementQuantity(item.id))
-											}
-										>
-											+
-										</Button>
-									</div>
-									<div>
-										<RemoveButton
-											onClick={() =>
-												dispatch(removeFromCart(item.id))
-											}
-										>
-											Remover
-										</RemoveButton>
-									</div>
-								</CartItemActions>
-							</CartItemContent>
-						</CartItem>
-					))}
-				</CartItemsWrapper>
-			)}
-			<TotalPrice style={{ marginInline: 'auto' }}>
-				TOTAL:{' '}
-				<span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
-					{formatMoney(getTotalPrice())}
-				</span>
-			</TotalPrice>
-		</Container>
+		<>
+			<TitleWrapper>
+				<Title>Carrinho</Title>
+				<SubTitle>Revise e finalize suas compras</SubTitle>
+			</TitleWrapper>
+			<Container>
+				{cart.length === 0 ? (
+					<p style={{ marginInline: 'auto' }}>
+						Seu carrinho não possui nenhum quadrinho.
+					</p>
+				) : (
+					<CartItemsWrapper>
+						{cart.map(item => (
+							<CartItem key={item.id}>
+								<Image
+									src={`${item.thumbnail.path}/portrait_small.${item.thumbnail.extension}`}
+									alt={item.title}
+									width={50}
+									height={75}
+									style={{ objectFit: 'cover' }}
+								/>
+								<CartItemContent>
+									<CartItemHeading>
+										<h2>{item.title}</h2>
+										<p>{formatMoney(item.quantity * item.price)}</p>
+									</CartItemHeading>
+									<CartItemActions>
+										<div>
+											<Button
+												onClick={() =>
+													dispatch(decrementQuantity(item.id))
+												}
+											>
+												-
+											</Button>
+											<p>{item.quantity}</p>
+											<Button
+												onClick={() =>
+													dispatch(incrementQuantity(item.id))
+												}
+											>
+												+
+											</Button>
+										</div>
+										<div>
+											<RemoveButton
+												onClick={() =>
+													dispatch(removeFromCart(item.id))
+												}
+											>
+												Remover
+											</RemoveButton>
+										</div>
+									</CartItemActions>
+								</CartItemContent>
+							</CartItem>
+						))}
+					</CartItemsWrapper>
+				)}
+				<TotalPrice style={{ marginInline: 'auto' }}>
+					TOTAL:{' '}
+					<span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+						{formatMoney(getTotalPrice())}
+					</span>
+				</TotalPrice>
+			</Container>
+		</>
 	);
 };
 export default Cart;

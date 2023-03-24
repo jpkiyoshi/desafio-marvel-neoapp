@@ -1,8 +1,23 @@
 import Link from 'next/link';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import Logo from '../atoms/Logo';
 import ShoppingCart from '../atoms/ShoppingCart';
+
+const pulse = keyframes`
+0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4);
+  }
+  70% {
+    transform: scale(1.2);
+    box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+  }`;
 
 const StyledHeader = styled.header`
 	height: 70px;
@@ -65,6 +80,15 @@ const Header = () => {
 		return cart.reduce((accumulator, item) => accumulator + item.quantity, 0);
 	};
 
+	useEffect(() => {
+		const cartCount = document.querySelector('#cart-count');
+		cartCount?.classList.add('animate');
+
+		setTimeout(() => {
+			cartCount?.classList.remove('animate');
+		}, 500);
+	}, [cart]);
+
 	return (
 		<StyledHeader>
 			<Content>
@@ -74,11 +98,12 @@ const Header = () => {
 				<Link href='/shopping-cart'>
 					<CartCountWrapper>
 						<ShoppingCart />
-						<span>{getItemsCount()}</span>
+						<span id='cart-count'>{getItemsCount()}</span>
 					</CartCountWrapper>
 				</Link>
 			</Content>
 		</StyledHeader>
 	);
 };
+
 export default Header;

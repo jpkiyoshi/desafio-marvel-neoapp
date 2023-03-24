@@ -29,6 +29,27 @@ type ComicsData = {
 	total: number;
 };
 
+const TitleWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: var(--white);
+`;
+
+const Title = styled.h1`
+	font-family: 'Roboto', sans-serif;
+	margin-inline: auto;
+	width: fit-content;
+	margin-top: 20px;
+	font-size: 1.8rem;
+	font-size: clamp(1.8rem, 1.3800000000000001rem + 1.7919999999999998vw, 2.5rem);
+	text-transform: uppercase;
+`;
+
+const SubTitle = styled.p`
+	font-family: 'Roboto', sans-serif;
+`;
+
 const PageActions = styled.nav`
 	height: 20px;
 	font-family: 'Roboto', sans-serif;
@@ -119,7 +140,10 @@ const ComicsPage = ({
 
 	return (
 		<>
-			<h1>Quadrinhos</h1>
+			<TitleWrapper>
+				<Title>Quadrinhos</Title>
+				<SubTitle>Explore mundos fantásticos com nossos quadrinhos!</SubTitle>
+			</TitleWrapper>
 			<ProductList products={comics} />
 			<PageActions>
 				<div>
