@@ -12,6 +12,7 @@ const StyledHeader = styled.header`
 	height: 70px;
 	width: 100%;
 	background-color: var(--red);
+	background-image: linear-gradient(to left, var(--red), 70%, var(--black));
 	color: var(--black);
 	display: flex;
 	justify-content: space-between;
@@ -30,6 +31,12 @@ const Content = styled.div`
 
 const CartCountWrapper = styled.div`
 	position: relative;
+	transition: transform 250ms ease-in;
+
+	&:hover {
+		transition: transform 150ms ease-out;
+		transform: scale(1.08);
+	}
 
 	span {
 		position: absolute;

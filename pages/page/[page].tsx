@@ -88,7 +88,7 @@ const PageActions = styled.nav`
 
 		@media (min-width: 800px) {
 			position: absolute;
-			left: 250px;
+			left: 220px;
 		}
 
 		h4 {

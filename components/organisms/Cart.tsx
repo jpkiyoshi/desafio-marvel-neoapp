@@ -80,7 +80,7 @@ const CartItemHeading = styled.div`
 	gap: 10px;
 
 	h2 {
-		font-size: 0.9rem;
+		font-size: 1rem;
 		max-width: 17ch;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -92,7 +92,8 @@ const CartItemHeading = styled.div`
 	}
 
 	p {
-		font-size: 0.9rem;
+		font-size: 1rem;
+		font-weight: bold;
 	}
 `;
 
@@ -102,6 +103,7 @@ const CartItemActions = styled.div`
 
 	& > div {
 		display: flex;
+		align-items: center;
 		gap: 5px;
 	}
 `;
@@ -111,8 +113,8 @@ const Button = styled.button`
 	cursor: pointer;
 	display: grid;
 	place-content: center;
-	width: 20px;
-	height: 20px;
+	width: 25px;
+	height: 25px;
 	padding-inline: 5px;
 	border: 3px solid var(--black);
 	color: var(--white);
@@ -128,14 +130,12 @@ const RemoveButton = styled.button`
 	font-weight: 700;
 	background-color: transparent;
 	color: var(--red);
-	font-size: 0.8rem;
+	font-size: 0.9rem;
 
 	&:hover {
 		opacity: 0.8;
 	}
 `;
-
-const TotalPrice = styled.p``;
 
 type CartItem = {
 	id: number;
@@ -223,12 +223,12 @@ const Cart = () => {
 						))}
 					</CartItemsWrapper>
 				)}
-				<TotalPrice style={{ marginInline: 'auto' }}>
+				<p style={{ marginInline: 'auto' }}>
 					TOTAL:{' '}
 					<span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
 						{formatMoney(getTotalPrice())}
 					</span>
-				</TotalPrice>
+				</p>
 			</Container>
 		</>
 	);

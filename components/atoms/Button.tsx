@@ -6,8 +6,11 @@ const StyledButton = styled.button`
 	align-items: center;
 	justify-content: center;
 	gap: 10px;
-	font-family: 'Comic Neue', cursive;
+	font-family: 'Bebas Neue', cursive;
+	letter-spacing: 1px;
 	background-color: var(--red);
+	background-image: linear-gradient(to left, var(--red), 80%, var(--black));
+	background-size: 200% 200%;
 	border: 5px solid var(--black);
 	color: var(--white);
 	padding: 15px 32px;
@@ -15,11 +18,11 @@ const StyledButton = styled.button`
 	font-size: 1.5rem;
 	font-weight: 700;
 	cursor: pointer;
-	transition: filter 200ms ease-in-out;
+	transition: background-position 200ms ease-in-out;
 	width: fit-content;
 
 	&:hover {
-		filter: brightness(120%);
+		background-position: 100% 0%;
 	}
 `;
 
