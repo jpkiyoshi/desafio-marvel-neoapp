@@ -34,20 +34,19 @@ export default createGlobalStyle`
 
   @keyframes pulse{
       0% {
-        transform: translateX(-50%) scale(1) ;
+        transform: scale(1) ;
         box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4);
       }
       70% {
-        transform: translateX(-50%) scale(1.4) ;
+        transform: scale(1.4) ;
         box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
       }
       100% {
-        transform: translateX(-50%) scale(1) ;
+        transform: scale(1) ;
         box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
   }};
 
   .animate {
     animation: pulse 0.5s ease-in-out;
- 
   }
 `;

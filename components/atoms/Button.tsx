@@ -5,7 +5,7 @@ const StyledButton = styled.button`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	gap: 20px;
+	gap: 10px;
 	font-family: 'Comic Neue', cursive;
 	background-color: var(--red);
 	border: 5px solid var(--black);
@@ -15,7 +15,12 @@ const StyledButton = styled.button`
 	font-size: 1.5rem;
 	font-weight: 700;
 	cursor: pointer;
-	transition: background-color 0.3s ease, color 0.3s ease;
+	transition: filter 200ms ease-in-out;
+	width: fit-content;
+
+	&:hover {
+		filter: brightness(120%);
+	}
 `;
 
 function Button({

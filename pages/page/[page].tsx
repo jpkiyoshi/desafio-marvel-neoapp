@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
 import ProductList from '@/components/organisms/ProductList';
@@ -34,15 +35,16 @@ const TitleWrapper = styled.div`
 	flex-direction: column;
 	align-items: center;
 	color: var(--white);
+	margin-top: 100px;
 `;
 
 const Title = styled.h1`
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Bebas Neue', cursive;
+	letter-spacing: 2px;
 	margin-inline: auto;
 	width: fit-content;
 	margin-top: 20px;
-	font-size: 1.8rem;
-	font-size: clamp(1.8rem, 1.3800000000000001rem + 1.7919999999999998vw, 2.5rem);
+	font-size: clamp(2rem, 1.3800000000000001rem + 1.7919999999999998vw, 3.5rem);
 	text-transform: uppercase;
 `;
 
@@ -51,6 +53,7 @@ const SubTitle = styled.p`
 `;
 
 const PageActions = styled.nav`
+	position: relative;
 	height: 20px;
 	font-family: 'Roboto', sans-serif;
 	color: var(--white);
@@ -58,15 +61,10 @@ const PageActions = styled.nav`
 	display: flex;
 	flex-direction: column;
 	width: fit-content;
-	margin-inline: auto;
 	font-size: 1.1rem;
 	align-items: center;
 	gap: 10px;
-
-	@media (min-width: 800px) {
-		flex-direction: row;
-		align-items: flex-start;
-	}
+	margin-inline: auto;
 
 	div {
 		display: flex;
@@ -74,10 +72,11 @@ const PageActions = styled.nav`
 
 	p {
 		display: flex;
-		min-width: 10ch;
+		min-width: 15ch;
 		font-size: 1rem;
 		align-items: center;
 		justify-content: center;
+		white-space: nowrap;
 	}
 
 	form {
@@ -87,10 +86,22 @@ const PageActions = styled.nav`
 		gap: 5px;
 		padding-bottom: 40px;
 
+		@media (min-width: 800px) {
+			position: absolute;
+			left: 250px;
+		}
+
+		h4 {
+			white-space: nowrap;
+		}
+
 		input {
 			font-family: inherit;
 			padding: 5px 0 5px 5px;
 			font-weight: bold;
+			border: 1px solid var(--orange);
+			background-color: var(--black);
+			color: var(--white);
 		}
 
 		button {
@@ -100,6 +111,10 @@ const PageActions = styled.nav`
 			background-color: var(--orange);
 			border: none;
 			padding: 7px;
+
+			&:hover {
+				filter: brightness(90%);
+			}
 		}
 	}
 `;
@@ -112,6 +127,10 @@ const StyledLink = styled(Link)`
 	background-color: var(--orange);
 	width: 100%;
 	justify-content: center;
+
+	&:hover {
+		filter: brightness(90%);
+	}
 `;
 
 const ComicsPage = ({
@@ -142,7 +161,7 @@ const ComicsPage = ({
 		<>
 			<TitleWrapper>
 				<Title>Quadrinhos</Title>
-				<SubTitle>Explore mundos fantásticos com nossos quadrinhos!</SubTitle>
+				<SubTitle>Explore mundos fantásticos com nossas HQ's!</SubTitle>
 			</TitleWrapper>
 			<ProductList products={comics} />
 			<PageActions>
@@ -169,7 +188,7 @@ const ComicsPage = ({
 					)}
 				</div>
 				<form onSubmit={handleSubmit}>
-					Ir para a página
+					<h4>Ir para a página</h4>
 					<input
 						type='number'
 						min='1'

@@ -28,18 +28,30 @@ const Container = styled.section`
 	height: 100dvh;
 	align-content: center;
 	justify-items: center;
-	grid-template-columns: 1fr 1fr;
-	background-color: var(--orange);
-	margin-top: 80px;
+	grid-template-columns: 1fr;
+	color: var(--white);
+	gap: 20px;
+	margin-top: 140px;
 	padding: 25px;
 	width: 80%;
 	margin-inline: auto;
+
+	@media (min-width: 800px) {
+		grid-template-columns: 1fr 1fr;
+	}
 `;
 
 const ImageContainer = styled.div`
 	position: relative;
 	width: 300px;
 	height: 500px;
+	transition: transform 250ms ease-in;
+	border: 3px solid var(--orange);
+
+	&:hover {
+		transition: transform 150ms ease-out;
+		transform: scale(1.1);
+	}
 `;
 
 const Content = styled.div`
@@ -48,15 +60,11 @@ const Content = styled.div`
 	flex-direction: column;
 	gap: 20px;
 	line-height: 1.5;
-
-	h1 {
-		font-family: 'Comic Neue', cursive;
-	}
 `;
 
 const Title = styled.h1`
+	font-family: 'Bebas Neue', cursive;
 	font-size: 2.5rem;
-	font-style: italic;
 	line-height: 1;
 `;
 
@@ -87,7 +95,7 @@ const ProductDetails = ({
 					src={`${thumbnail.path}/detail.${thumbnail.extension}`}
 					alt={title}
 					fill
-					style={{ objectFit: 'contain' }}
+					style={{ objectFit: 'cover' }}
 				/>
 			</ImageContainer>
 			<Content>

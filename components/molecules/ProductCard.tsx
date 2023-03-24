@@ -18,6 +18,13 @@ type Props = {
 const Card = styled.article`
 	width: 216px;
 	border: 3px solid var(--orange);
+	transition: transform 250ms ease-in;
+
+	&:hover {
+		transition: transform 150ms ease-out;
+		transform: translateY(-10px);
+		box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+	}
 `;
 
 const Content = styled.div`
@@ -46,6 +53,10 @@ const Button = styled.button`
 	background-color: transparent;
 	border: none;
 	cursor: pointer;
+
+	&:hover {
+		opacity: 0.7;
+	}
 `;
 
 const ProductCard = ({ title, price, thumbnail, id }: Props) => {

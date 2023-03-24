@@ -1,33 +1,23 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import Logo from '../atoms/Logo';
 import ShoppingCart from '../atoms/ShoppingCart';
 
-const pulse = keyframes`
-0% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4);
-  }
-  70% {
-    transform: scale(1.2);
-    box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
-  }`;
-
 const StyledHeader = styled.header`
+	position: fixed;
+	top: 0;
+	z-index: 10;
 	height: 70px;
 	width: 100%;
-	background-color: var(--orange);
+	background-color: var(--red);
 	color: var(--black);
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding-inline: 25px;
+	border-bottom: 2px solid var(--black);
 `;
 
 const Content = styled.div`
@@ -44,17 +34,16 @@ const CartCountWrapper = styled.div`
 	span {
 		position: absolute;
 		border: 2px solid var(--black);
-		font-size: 0.8rem;
+		font-size: 0.9rem;
 		display: grid;
 		place-content: center;
-		height: 20px;
-		width: 20px;
-		color: var(--white);
-		background-color: var(--red);
+		height: 22px;
+		width: 22px;
+		color: var(--black);
+		background-color: var(--orange);
 		border-radius: 500px;
-		top: -5px;
+		top: -10px;
 		left: 55%;
-		transform: translateX(-50%);
 	}
 `;
 
