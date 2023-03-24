@@ -63,9 +63,21 @@ const Content = styled.div`
 `;
 
 const Title = styled.h1`
+	position: relative;
+	display: inline-block;
+	padding-bottom: 10px;
 	font-family: 'Bebas Neue', cursive;
 	font-size: 2.5rem;
 	line-height: 1;
+
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		right: 50%;
+		width: 50%;
+		border-bottom: 2px solid white;
+	}
 `;
 
 const SubHeading = styled.h2`
