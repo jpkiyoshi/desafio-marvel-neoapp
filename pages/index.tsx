@@ -1,14 +1,8 @@
 import Head from 'next/head';
-import { GetStaticProps } from 'next';
-import ProductList from '@/components/organisms/ProductList';
 import Link from 'next/link';
 import Button from '@/components/atoms/Button';
 
-export default function Home({ data }: any) {
-	const {
-		data: { results: comics },
-	} = data;
-
+export default function Home() {
 	return (
 		<>
 			<Head>
@@ -26,18 +20,3 @@ export default function Home({ data }: any) {
 		</>
 	);
 }
-
-export const getStaticProps: GetStaticProps = async () => {
-	const res = await fetch(
-		`http://gateway.marvel.com/v1/public/comics?format=comic&limit=10&offset=10&ts=1&apikey=${process.env.NEXT_PUBLIC_API_KEY}&hash=f3c107943b00a0293c39eb2c158a731a`
-	);
-
-	const data = await res.json();
-
-	return {
-		props: {
-			data,
-		},
-		revalidate: 10,
-	};
-};

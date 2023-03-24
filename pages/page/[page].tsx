@@ -2,9 +2,17 @@ import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
 import ProductList from '@/components/organisms/ProductList';
 
+type Price = {
+	price: number;
+	type: 'printPrice';
+};
+
+type Prices = Price[];
+
 type Comic = {
-	id: number;
+	id: string;
 	title: string;
+	prices: Prices;
 	thumbnail: {
 		path: string;
 		extension: string;
@@ -16,10 +24,14 @@ type ComicsData = {
 	total: number;
 };
 
-const ComicsPage = ({ comicsData }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const ComicsPage = ({
+	comicsData,
+	pageNumber,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
 	const { results: comics, total: totalComics } = comicsData;
-	const currentPage = 1;
+	const currentPage = parseInt(pageNumber);
 	const totalPageCount = Math.ceil(totalComics / 10);
+
 	const prevPage = currentPage - 1 <= 0 ? null : currentPage - 1;
 	const nextPage = currentPage + 1 > totalPageCount ? null : currentPage + 1;
 
@@ -28,8 +40,9 @@ const ComicsPage = ({ comicsData }: InferGetStaticPropsType<typeof getStaticProp
 			<h1>Comics Page</h1>
 			<ProductList products={comics} />
 			<nav>
-				{prevPage && <Link href={`/page/${prevPage}`}>Previous</Link>}
-				{nextPage && <Link href={`/page/${nextPage}`}>Next</Link>}
+				{prevPage && <Link href={`/page/${prevPage}`}>Anterior</Link>}
+				{totalPageCount}
+				{nextPage && <Link href={`/page/${nextPage}`}>Seguinte</Link>}
 			</nav>
 		</>
 	);
@@ -56,11 +69,12 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps<
-	{ comicsData: ComicsData },
+	{ comicsData: ComicsData; pageNumber: string },
 	{ page: string }
 > = async ({ params }) => {
 	const { page } = params!;
-	const offset = (parseInt(page) - 1) * 10;
+	const pageNumber = page || '1';
+	const offset = (parseInt(pageNumber) - 1) * 10;
 
 	const comicsResponse = await fetch(
 		`http://gateway.marvel.com/v1/public/comics?format=comic&limit=10&offset=${offset}&ts=1&apikey=${process.env.NEXT_PUBLIC_API_KEY}&hash=f3c107943b00a0293c39eb2c158a731a`
@@ -75,6 +89,7 @@ export const getStaticProps: GetStaticProps<
 				results: comics,
 				total: totalComics,
 			},
+			pageNumber,
 		},
 		revalidate: 3600,
 	};
