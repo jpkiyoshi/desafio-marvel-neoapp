@@ -13,18 +13,42 @@ type Props = {
 		extension: string;
 	};
 	id: string;
+	isRare?: boolean;
 };
 
-const Card = styled.article`
+type ProductCardProps = {
+	isRare?: boolean;
+};
+
+const Card = styled.article<ProductCardProps>`
 	width: 216px;
-	border: 3px solid var(--orange);
+	border: 3px solid ${({ isRare }) => (isRare ? 'var(--orange)' : 'var(--red)')};
+	box-shadow: ${({ isRare }) => (isRare ? '0 0 20px #ffcc00;' : '')};
+
 	transition: transform 250ms ease-in;
 
 	&:hover {
 		transition: transform 150ms ease-out;
 		transform: translateY(-10px);
-		box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
 	}
+
+	${({ isRare }) =>
+		isRare &&
+		`
+    &:after {
+      content: "RARO!";
+      font-family: "Roboto", sans-serif;
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      font-size: 1rem;
+      background-color: var(--red);
+      color: #fff;
+      padding: 10px;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.6);
+      transform: rotate(30deg);
+    }
+  `}
 `;
 
 const Content = styled.div`
@@ -59,11 +83,11 @@ const Button = styled.button`
 	}
 `;
 
-const ProductCard = ({ title, price, thumbnail, id }: Props) => {
+const ProductCard = ({ title, price, thumbnail, id, isRare }: Props) => {
 	const dispatch = useDispatch();
 
 	return (
-		<Card>
+		<Card isRare={isRare}>
 			<Link href={`/comics/${id}`}>
 				<Image
 					src={`${thumbnail.path}/portrait_incredible.${thumbnail.extension}`}

@@ -18,6 +18,7 @@ type Product = {
 	title: string;
 	prices: Prices;
 	thumbnail: Thumbnail;
+	isRare?: boolean;
 };
 
 type Products = Product[];
@@ -33,10 +34,18 @@ const GridContainer = styled.section`
 `;
 
 const ProductList = ({ products }: { products: Products }) => {
+	const rareComics = products
+		.map(product => ({
+			...product,
+			isRare: Math.random() < 0.1,
+		}))
+		.filter(product => product.isRare);
+
 	return (
 		<GridContainer>
 			{products.map(product => (
 				<ProductCard
+					isRare={rareComics.some(rare => rare.id === product.id)}
 					key={product.id}
 					id={product.id}
 					title={product.title}
