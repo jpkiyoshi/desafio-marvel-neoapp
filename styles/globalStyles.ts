@@ -16,6 +16,12 @@ export default createGlobalStyle`
 
   body {
    font-family: 'Comic Neue', cursive;
+   background-image: url('/images/hero-image.jpg');
+	background-color: var(--black);
+	background-size: auto;
+	background-position: center;
+	background-repeat: repeat;
+
 
     --orange: #ffb800;
     --red: #aa0001;

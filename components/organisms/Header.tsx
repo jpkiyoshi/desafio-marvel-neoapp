@@ -68,7 +68,7 @@ const Header = () => {
 	return (
 		<StyledHeader>
 			<Content>
-				<Link href='/'>
+				<Link href='/page/1'>
 					<Logo />
 				</Link>
 				<Link href='/shopping-cart'>

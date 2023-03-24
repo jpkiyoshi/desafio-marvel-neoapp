@@ -1,6 +1,5 @@
 import Head from 'next/head';
-import Link from 'next/link';
-import Button from '@/components/atoms/Button';
+import { GetServerSideProps } from 'next';
 
 export default function Home() {
 	return (
@@ -12,11 +11,13 @@ export default function Home() {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 
-			<>
-				<Button>
-					<Link href='/page/1'>Ir para COMICS</Link>
-				</Button>
-			</>
+			<div>Página inicial</div>
 		</>
 	);
 }
+
+export const getServerSideProps: GetServerSideProps = async context => {
+	context.res.writeHead(302, { Location: '/page/1' });
+	context.res.end();
+	return { props: {} };
+};
