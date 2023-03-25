@@ -21,6 +21,7 @@ export default createGlobalStyle`
 	background-size: auto;
 	background-position: center;
 	background-repeat: repeat;
+  overflow-x: hidden;
 
     --orange: #ffb800;
     --red: #aa0001;

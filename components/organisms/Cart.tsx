@@ -7,6 +7,7 @@ import {
 	removeFromCart,
 } from '../../redux/cart.slice';
 import formatMoney from '@/utils/formatMoney';
+import { FormEvent, useState } from 'react';
 
 const Container = styled.section`
 	font-family: 'Roboto', sans-serif;
@@ -20,8 +21,11 @@ const Container = styled.section`
 	margin-top: 30px;
 	padding: 25px;
 	width: 80%;
-	margin-inline: auto;
 	margin-bottom: 50px;
+
+	@media (min-width: 380px) {
+		margin-inline: auto;
+	}
 `;
 
 const TitleWrapper = styled.div`
@@ -54,10 +58,17 @@ const CartItemsWrapper = styled.section`
 	background-color: #ffffff0f;
 	padding: 20px;
 	border: 1px solid var(--orange);
+	min-width: 300px;
 
 	& > *:not(:last-child) {
 		border-bottom: 1px solid var(--white);
 	}
+`;
+
+const ImageContainer = styled.div<{ isRare?: boolean }>`
+	position: relative;
+	border: 2px solid ${({ isRare }) => (isRare ? 'var(--orange)' : 'var(--red)')};
+	box-shadow: ${({ isRare }) => (isRare ? '0 0 10px #ffcc00;' : '')};
 `;
 
 const CartItem = styled.div`
@@ -80,7 +91,7 @@ const CartItemHeading = styled.div`
 	gap: 10px;
 
 	h2 {
-		font-size: 1rem;
+		font-size: 0.8rem;
 		max-width: 17ch;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -88,12 +99,18 @@ const CartItemHeading = styled.div`
 
 		@media (min-width: 800px) {
 			max-width: 80ch;
+			font-size: 1rem;
 		}
 	}
 
 	p {
-		font-size: 1rem;
+		font-size: 0.8rem;
 		font-weight: bold;
+
+		@media (min-width: 800px) {
+			max-width: 80ch;
+			font-size: 1rem;
+		}
 	}
 `;
 
@@ -129,12 +146,70 @@ const RemoveButton = styled.button`
 	cursor: pointer;
 	font-weight: 700;
 	background-color: transparent;
-	color: var(--red);
+	color: var(--orange);
 	font-size: 0.9rem;
 
 	&:hover {
 		opacity: 0.8;
 	}
+`;
+
+const PreviousPrice = styled.span`
+	text-decoration: line-through;
+	font-size: 1rem;
+	margin-left: 10px;
+	opacity: 0.8;
+`;
+
+const CouponForm = styled.form`
+	display: flex;
+	margin-inline: auto;
+	gap: 8px;
+	flex-direction: column;
+	align-items: stretch;
+
+	@media (min-width: 650px) {
+		flex-direction: row;
+		align-items: center;
+	}
+
+	h4 {
+		white-space: nowrap;
+	}
+
+	input {
+		font-family: inherit;
+		padding: 5px 0 5px 5px;
+		font-weight: bold;
+		border: 1px solid var(--orange);
+		background-color: var(--black);
+		color: var(--white);
+	}
+
+	button {
+		color: var(--black);
+		font-weight: bold;
+		cursor: pointer;
+		background-color: var(--orange);
+		border: none;
+		padding: 7px;
+
+		&:hover {
+			filter: brightness(90%);
+		}
+	}
+`;
+
+const RareItem = styled.span`
+	position: absolute;
+	top: -1px;
+	left: -14px;
+	transform: rotate(-30deg);
+	background-color: var(--red);
+	color: var(--white);
+	font-size: 0.6rem;
+	padding: 3px;
+	font-weight: bold;
 `;
 
 type CartItem = {
@@ -146,6 +221,7 @@ type CartItem = {
 		path: string;
 		extension: string;
 	};
+	isRare: boolean;
 };
 
 type State = {
@@ -155,12 +231,22 @@ type State = {
 const Cart = () => {
 	const cart = useSelector((state: State) => state.cart);
 	const dispatch = useDispatch();
+	const [coupon, setCoupon] = useState('');
 
 	const getTotalPrice = () => {
 		return cart.reduce(
 			(accumulator, item) => accumulator + item.quantity * item.price,
 			0
 		);
+	};
+
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		const form = e.target as HTMLFormElement;
+
+		if ('coupon' in form.elements) {
+			setCoupon((form.elements['coupon'] as HTMLInputElement).value);
+		}
 	};
 
 	return (
@@ -178,13 +264,18 @@ const Cart = () => {
 					<CartItemsWrapper>
 						{cart.map(item => (
 							<CartItem key={item.id}>
-								<Image
-									src={`${item.thumbnail.path}/portrait_small.${item.thumbnail.extension}`}
-									alt={item.title}
-									width={50}
-									height={75}
-									style={{ objectFit: 'cover' }}
-								/>
+								<ImageContainer isRare={item.isRare}>
+									<Image
+										src={`${item.thumbnail.path}/portrait_small.${item.thumbnail.extension}`}
+										alt={item.title}
+										width={50}
+										height={75}
+										style={{ objectFit: 'cover' }}
+									/>
+
+									{item.isRare ? <RareItem>RARO!</RareItem> : ''}
+								</ImageContainer>
+
 								<CartItemContent>
 									<CartItemHeading>
 										<h2>{item.title}</h2>
@@ -223,10 +314,25 @@ const Cart = () => {
 						))}
 					</CartItemsWrapper>
 				)}
+				<CouponForm onSubmit={handleSubmit}>
+					<label htmlFor='coupon'>Aplique um cupom de desconto:</label>
+					<input type='text' id='coupon' />
+					<button type='submit'>Aplicar</button>
+				</CouponForm>
 				<p style={{ marginInline: 'auto' }}>
 					TOTAL:{' '}
 					<span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
-						{formatMoney(getTotalPrice())}
+						{coupon === 'MARVEL20' ? (
+							<>
+								{formatMoney(getTotalPrice() * 0.8)}
+								<PreviousPrice>
+									{' '}
+									{formatMoney(getTotalPrice())} -{' '}
+								</PreviousPrice>
+							</>
+						) : (
+							formatMoney(getTotalPrice())
+						)}
 					</span>
 				</p>
 			</Container>

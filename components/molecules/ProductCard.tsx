@@ -16,11 +16,9 @@ type Props = {
 	isRare?: boolean;
 };
 
-type ProductCardProps = {
+const Card = styled.article<{
 	isRare?: boolean;
-};
-
-const Card = styled.article<ProductCardProps>`
+}>`
 	width: 216px;
 	border: 3px solid ${({ isRare }) => (isRare ? 'var(--orange)' : 'var(--red)')};
 	box-shadow: ${({ isRare }) => (isRare ? '0 0 20px #ffcc00;' : '')};
@@ -38,6 +36,7 @@ const Card = styled.article<ProductCardProps>`
     &:after {
       content: "RARO!";
       font-family: "Roboto", sans-serif;
+      font-weight: bold;
       position: absolute;
       top: -15px;
       right: -15px;
@@ -109,7 +108,7 @@ const ProductCard = ({ title, price, thumbnail, id, isRare }: Props) => {
 					</p>
 					<Button
 						onClick={() => {
-							dispatch(addToCart({ title, price, thumbnail, id }));
+							dispatch(addToCart({ title, price, thumbnail, id, isRare }));
 						}}
 					>
 						<AddToCartIcon />

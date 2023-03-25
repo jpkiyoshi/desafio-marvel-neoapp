@@ -34,18 +34,14 @@ const GridContainer = styled.section`
 `;
 
 const ProductList = ({ products }: { products: Products }) => {
-	const rareComics = products
-		.map(product => ({
-			...product,
-			isRare: Math.random() < 0.1,
-		}))
-		.filter(product => product.isRare);
+	const numero = Math.floor(Math.random() * products.length);
+	products[numero].isRare = true;
 
 	return (
 		<GridContainer>
 			{products.map(product => (
 				<ProductCard
-					isRare={rareComics.some(rare => rare.id === product.id)}
+					isRare={product.isRare}
 					key={product.id}
 					id={product.id}
 					title={product.title}
