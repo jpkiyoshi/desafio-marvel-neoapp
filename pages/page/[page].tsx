@@ -241,9 +241,13 @@ export const getServerSideProps: GetServerSideProps<
 	const comicsResponse = await fetch(
 		`http://gateway.marvel.com/v1/public/comics?orderBy=title&format=comic&limit=10&offset=${offset}&ts=1&apikey=${process.env.NEXT_PUBLIC_API_KEY}&hash=cfc29b20f1501cf633b27057de8fe8a1`
 	);
+
 	const comicsData = await comicsResponse.json();
+	console.log('comicsData:', comicsData);
 	const comics = comicsData.data?.results;
+	console.log('comics:', comics);
 	const totalComics = comicsData.data?.total;
+	console.log('totalComics:', totalComics);
 
 	const randomIndex = Math.floor(Math.random() * comics.length);
 	comics[randomIndex] = { ...comics[randomIndex], isRare: true };
