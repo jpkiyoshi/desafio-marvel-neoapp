@@ -1,10 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import {
-	GetServerSideProps,
-	GetStaticProps,
-	InferGetServerSidePropsType,
-	InferGetStaticPropsType,
-} from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Link from 'next/link';
 import ProductList from '@/components/organisms/ProductList';
 import styled from 'styled-components';
@@ -141,7 +136,7 @@ const StyledLink = styled(Link)`
 const ComicsPage = ({
 	comicsData,
 	pageNumber,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 	const { results: comics, total: totalComics } = comicsData;
 	const currentPage = parseInt(pageNumber);
 	const totalPageCount = Math.ceil(totalComics / 10);
@@ -210,27 +205,27 @@ const ComicsPage = ({
 
 export default ComicsPage;
 
-export const getStaticPaths = async () => {
-	const res = await fetch(
-		`http://gateway.marvel.com/v1/public/comics?format=comic&ts=1&apikey=${process.env.NEXT_PUBLIC_API_KEY}&hash=cfc29b20f1501cf633b27057de8fe8a1`
-	);
-	const comicsData = await res.json();
-	const totalComics = comicsData.data?.total;
-	const totalPageCount = Math.ceil(totalComics / 10);
+// export const getStaticPaths = async () => {
+// 	const res = await fetch(
+// 		`http://gateway.marvel.com/v1/public/comics?format=comic&ts=1&apikey=${process.env.NEXT_PUBLIC_API_KEY}&hash=cfc29b20f1501cf633b27057de8fe8a1`
+// 	);
+// 	const comicsData = await res.json();
+// 	const totalComics = comicsData.data?.total;
+// 	const totalPageCount = Math.ceil(totalComics / 10);
 
-	const paths = [...Array(totalPageCount)].map((_, index) => ({
-		params: { page: `${index + 1}` },
-	}));
+// 	const paths = [...Array(totalPageCount)].map((_, index) => ({
+// 		params: { page: `${index + 1}` },
+// 	}));
 
-	console.log(paths.length);
+// 	console.log(paths.length);
 
-	return {
-		paths,
-		fallback: true,
-	};
-};
+// 	return {
+// 		paths,
+// 		fallback: true,
+// 	};
+// };
 
-export const getStaticProps: GetStaticProps<
+export const getServerSideProps: GetServerSideProps<
 	{ comicsData: ComicsData; pageNumber: string },
 	{ page: string }
 > = async ({ params }) => {
