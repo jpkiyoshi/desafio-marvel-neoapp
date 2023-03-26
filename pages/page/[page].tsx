@@ -210,7 +210,7 @@ export const getStaticPaths = async () => {
 		`http://gateway.marvel.com/v1/public/comics?format=comic&ts=1&apikey=${process.env.NEXT_PUBLIC_API_KEY}&hash=cfc29b20f1501cf633b27057de8fe8a1`
 	);
 	const comicsData = await res.json();
-	const totalComics = comicsData?.data.total;
+	const totalComics = comicsData.data?.total;
 	const totalPageCount = Math.ceil(totalComics / 10);
 
 	const paths = [...Array(totalPageCount)].map((_, index) => ({
@@ -235,8 +235,8 @@ export const getStaticProps: GetStaticProps<
 		`http://gateway.marvel.com/v1/public/comics?orderBy=title&format=comic&limit=10&offset=${offset}&ts=1&apikey=${process.env.NEXT_PUBLIC_API_KEY}&hash=cfc29b20f1501cf633b27057de8fe8a1`
 	);
 	const comicsData = await comicsResponse.json();
-	const comics = comicsData?.data.results;
-	const totalComics = comicsData?.data.total;
+	const comics = comicsData.data?.results;
+	const totalComics = comicsData.data?.total;
 
 	const randomIndex = Math.floor(Math.random() * comics.length);
 	comics[randomIndex] = { ...comics[randomIndex], isRare: true };
