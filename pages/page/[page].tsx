@@ -249,6 +249,6 @@ export const getStaticProps: GetStaticProps<
 			},
 			pageNumber,
 		},
-		revalidate: 3600,
+		revalidate: 60,
 	};
 };
