@@ -8,6 +8,7 @@ import {
 } from '../../redux/cart.slice';
 import formatMoney from '@/utils/formatMoney';
 import { FormEvent, useState } from 'react';
+import { iteratorSymbol } from 'immer/dist/internal';
 
 const Container = styled.section`
 	font-family: 'Roboto', sans-serif;
@@ -212,6 +213,13 @@ const RareItem = styled.span`
 	font-weight: bold;
 `;
 
+const CartItemDiscountWrapper = styled.div`
+	span {
+		text-decoration: line-through;
+		font-size: 0.7rem;
+	}
+`;
+
 type CartItem = {
 	id: number;
 	price: number;
@@ -234,10 +242,27 @@ const Cart = () => {
 	const [coupon, setCoupon] = useState('');
 
 	const getTotalPrice = () => {
-		return cart.reduce(
+		const rareItems = cart.filter(item => item.isRare);
+		const commonItems = cart.filter(item => !item.isRare);
+
+		let rareItemTotal = rareItems.reduce(
 			(accumulator, item) => accumulator + item.quantity * item.price,
 			0
 		);
+
+		let commonItemTotal = commonItems.reduce(
+			(accumulator, item) => accumulator + item.quantity * item.price,
+			0
+		);
+
+		if (coupon === 'MARVELRARO10') {
+			console.log('entrei');
+			rareItemTotal *= 0.9;
+		} else if (coupon === 'MARVEL20') {
+			commonItemTotal *= 0.8;
+		}
+
+		return rareItemTotal + commonItemTotal;
 	};
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -279,7 +304,37 @@ const Cart = () => {
 								<CartItemContent>
 									<CartItemHeading>
 										<h2>{item.title}</h2>
-										<p>{formatMoney(item.quantity * item.price)}</p>
+										{coupon === 'MARVEL20' && !item.isRare ? (
+											<CartItemDiscountWrapper>
+												<p>
+													{formatMoney(
+														item.quantity * (item.price * 0.8)
+													)}
+												</p>{' '}
+												<span>
+													{formatMoney(
+														item.quantity * item.price
+													)}
+												</span>
+											</CartItemDiscountWrapper>
+										) : coupon === 'MARVELRARO10' && item.isRare ? (
+											<CartItemDiscountWrapper>
+												<p>
+													{formatMoney(
+														item.quantity * (item.price * 0.8)
+													)}
+												</p>{' '}
+												<span>
+													{formatMoney(
+														item.quantity * item.price
+													)}
+												</span>
+											</CartItemDiscountWrapper>
+										) : (
+											<p>
+												{formatMoney(item.quantity * item.price)}
+											</p>
+										)}
 									</CartItemHeading>
 									<CartItemActions>
 										<div>
@@ -314,15 +369,18 @@ const Cart = () => {
 						))}
 					</CartItemsWrapper>
 				)}
-				<CouponForm onSubmit={handleSubmit}>
-					<label htmlFor='coupon'>Aplique um cupom de desconto:</label>
-					<input type='text' id='coupon' />
-					<button type='submit'>Aplicar</button>
-				</CouponForm>
+				{cart.length > 0 && (
+					<CouponForm onSubmit={handleSubmit}>
+						<label htmlFor='coupon'>Aplique um cupom de desconto:</label>
+						<input type='text' id='coupon' />
+						<button type='submit'>Aplicar</button>
+					</CouponForm>
+				)}
+
 				<p style={{ marginInline: 'auto' }}>
 					TOTAL:{' '}
 					<span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
-						{coupon === 'MARVEL20' ? (
+						{coupon === 'MARVEL20' || coupon === 'MARVELRARO10' ? (
 							<>
 								{formatMoney(getTotalPrice() * 0.8)}
 								<PreviousPrice>
