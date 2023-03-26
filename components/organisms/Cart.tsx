@@ -14,14 +14,9 @@ const Container = styled.section`
 	font-family: 'Roboto', sans-serif;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	gap: 50px;
-	align-content: center;
-	justify-items: center;
 	color: var(--white);
 	margin-top: 30px;
-	padding: 25px;
-	width: 80%;
 	margin-bottom: 50px;
 
 	@media (min-width: 380px) {

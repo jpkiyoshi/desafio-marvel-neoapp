@@ -31,13 +31,13 @@ const Container = styled.section`
 	grid-template-columns: 1fr;
 	color: var(--white);
 	gap: 20px;
-	margin-top: 140px;
-	padding: 25px;
+	margin-top: 300px;
 	width: 80%;
 	margin-inline: auto;
 
 	@media (min-width: 800px) {
 		grid-template-columns: 1fr 1fr;
+		margin-top: 50px;
 	}
 `;
 
