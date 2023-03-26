@@ -206,10 +206,10 @@ const ComicsPage = ({
 export default ComicsPage;
 
 export const getStaticPaths = async () => {
-	const comicsResponse = await fetch(
+	const res = await fetch(
 		`http://gateway.marvel.com/v1/public/comics?format=comic&ts=1&apikey=${process.env.NEXT_PUBLIC_API_KEY}&hash=f3c107943b00a0293c39eb2c158a731a`
 	);
-	const comicsData = await comicsResponse.json();
+	const comicsData = await res.json();
 	const totalComics = comicsData.data.total;
 	const totalPageCount = Math.ceil(totalComics / 10);
 
@@ -237,6 +237,9 @@ export const getStaticProps: GetStaticProps<
 	const comicsData = await comicsResponse.json();
 	const comics = comicsData.data.results;
 	const totalComics = comicsData.data.total;
+
+	const randomIndex = Math.floor(Math.random() * comics.length);
+	comics[randomIndex] = { ...comics[randomIndex], isRare: true };
 
 	return {
 		props: {

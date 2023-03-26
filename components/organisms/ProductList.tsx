@@ -34,9 +34,6 @@ const GridContainer = styled.section`
 `;
 
 const ProductList = ({ products }: { products: Products }) => {
-	const randomIndex = Math.floor(Math.random() * products.length);
-	products[randomIndex].isRare = true;
-
 	return (
 		<GridContainer>
 			{products.map(product => (
