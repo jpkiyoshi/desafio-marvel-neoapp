@@ -33,7 +33,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 	const data = await res.json();
 
-	const ids = data.data.results.map((comic: { id: number }) => comic.id);
+	const ids = data?.data.results.map((comic: { id: number }) => comic.id);
 
 	const paths = ids.map((id: number) => ({
 		params: { id: `${id}` },
