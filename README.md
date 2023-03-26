@@ -1,38 +1,57 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# DESAFIO DESENVOLVEDOR FRONT-END NEOAPP
 
-## Getting Started
+## O DESAFIO
 
-First, run the development server:
+A Marvel acaba de te contratar para criar o front-end de sua loja de quadrinhos
+virtual. Desejam algo moderno, bonito, e que seus usuários não tenham muito
+problema para efetuar a compra. O layout e a arquitetura é com você, seja criativo!
+Para eles, o essencial para realizar esta tarefa é:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+-   Uma listagem paginada das histórias em quadrinhos (HQ's);
+-   Uma página de visualização individual da HQ;
+-   E o carrinho
+    Depois de negociarem um pouco, pediram algumas coisas que são opcionais na
+    entrega do website:
+-   Na listagem de HQ's, 10% dos quadrinhos mostrados devem ser marcados
+    como raros aleatoriamente ao carregar;
+-   O carrinho deve apresentar a possibilidade de inserir um cupom de desconto
+    com validação mock, sem API;
+-   Por fim, existiriam dois tipos de cupons: os cupons comuns e os raros. Que
+    seriam aplicados somente para HQ's respectivamente comuns e raras.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# ETAPAS
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Design
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+A primeira etapa foi o design do site. Utilizei uma grid responsiva para a listagem das HQs e desenvolvi uma interface simples para a página de visualização individual de cada HQ.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Conexão com a API
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Em seguida, realizei a conexão com a API e conectei os dados às respectivas páginas. Nessa etapa, optei por utilizar Static Site Generation, mas acabei mudando ao final.
 
-## Learn More
+## Carrinho de compras
 
-To learn more about Next.js, take a look at the following resources:
+Depois, desenvolvi o carrinho de compras utilizando o redux-toolkit.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Paginação
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Então, desenvolvi o sistema de paginação de HQs.
 
-## Deploy on Vercel
+## Animações
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Adicionei algumas animações, destacando a animação que ocorre ao adicionar algum produto ao carrinho.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Lógica de itens raros e cupons
+
+Em seguida, adicionei a lógica de itens raros aleatórios e cupons raros e comuns.
+
+## Deploy
+
+Quando fui fazer o deploy, percebi que Static Site Generation ia deixar o tempo de build muito rápido, então tive que trocar para Server Side Rendering.
+
+## Cupons de desconto
+
+Utilizei os seguintes cupons para a lógica de cupom:
+
+-   MARVELRARO10: 10% de desconto em HQs raras
+-   MARVEL20: 20% de desconto em HQs comuns
