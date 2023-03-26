@@ -141,7 +141,7 @@ const StyledLink = styled(Link)`
 const ComicsPage = ({
 	comicsData,
 	pageNumber,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
 	const { results: comics, total: totalComics } = comicsData;
 	const currentPage = parseInt(pageNumber);
 	const totalPageCount = Math.ceil(totalComics / 10);
@@ -210,27 +210,27 @@ const ComicsPage = ({
 
 export default ComicsPage;
 
-// export const getStaticPaths = async () => {
-// 	const res = await fetch(
-// 		`http://gateway.marvel.com/v1/public/comics?format=comic&ts=1&apikey=${process.env.NEXT_PUBLIC_API_KEY}&hash=cfc29b20f1501cf633b27057de8fe8a1`
-// 	);
-// 	const comicsData = await res.json();
-// 	const totalComics = comicsData.data?.total;
-// 	const totalPageCount = Math.ceil(totalComics / 10);
+export const getStaticPaths = async () => {
+	const res = await fetch(
+		`http://gateway.marvel.com/v1/public/comics?format=comic&ts=1&apikey=${process.env.NEXT_PUBLIC_API_KEY}&hash=cfc29b20f1501cf633b27057de8fe8a1`
+	);
+	const comicsData = await res.json();
+	const totalComics = comicsData.data?.total;
+	const totalPageCount = Math.ceil(totalComics / 10);
 
-// 	const paths = [...Array(totalPageCount)].map((_, index) => ({
-// 		params: { page: `${index + 1}` },
-// 	}));
+	const paths = [...Array(totalPageCount)].map((_, index) => ({
+		params: { page: `${index + 1}` },
+	}));
 
-// 	console.log(paths.length);
+	console.log(paths.length);
 
-// 	return {
-// 		paths,
-// 		fallback: true,
-// 	};
-// };
+	return {
+		paths,
+		fallback: true,
+	};
+};
 
-export const getServerSideProps: GetServerSideProps<
+export const getStaticProps: GetStaticProps<
 	{ comicsData: ComicsData; pageNumber: string },
 	{ page: string }
 > = async ({ params }) => {
@@ -243,11 +243,8 @@ export const getServerSideProps: GetServerSideProps<
 	);
 
 	const comicsData = await comicsResponse.json();
-	console.log('comicsData:', comicsData);
 	const comics = comicsData.data?.results;
-	console.log('comics:', comics);
 	const totalComics = comicsData.data?.total;
-	console.log('totalComics:', totalComics);
 
 	const randomIndex = Math.floor(Math.random() * comics.length);
 	comics[randomIndex] = { ...comics[randomIndex], isRare: true };
