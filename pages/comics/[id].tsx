@@ -28,7 +28,7 @@ export default Comic;
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	const res = await fetch(
-		`http://gateway.marvel.com/v1/public/comics?ts=1&apikey=${process.env.NEXT_PUBLIC_API_KEY}&hash=f3c107943b00a0293c39eb2c158a731a`
+		`http://gateway.marvel.com/v1/public/comics?ts=1&apikey=${process.env.NEXT_PUBLIC_API_KEY}&hash=cfc29b20f1501cf633b27057de8fe8a1`
 	);
 
 	const data = await res.json();
@@ -47,7 +47,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const res = await fetch(
-		`http://gateway.marvel.com/v1/public/comics/${params?.id}?ts=1&apikey=${process.env.NEXT_PUBLIC_API_KEY}&hash=f3c107943b00a0293c39eb2c158a731a`
+		`http://gateway.marvel.com/v1/public/comics/${params?.id}?ts=1&apikey=${process.env.NEXT_PUBLIC_API_KEY}&hash=cfc29b20f1501cf633b27057de8fe8a1`
 	);
 	const data = await res.json();
 
